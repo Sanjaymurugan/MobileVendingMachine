@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "316652559395",
+    "firebase_url": "https://mobilevendingmachine.firebaseio.com",
+    "project_id": "mobilevendingmachine",
+    "storage_bucket": "mobilevendingmachine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316652559395:android:742db1b543ecf32394a596",
+        "android_client_info": {
+          "package_name": "com.project.mobilevendingmachine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316652559395-nc3bjogdue2k09chmcscnh9pf8kkh078.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.mobilevendingmachine",
+            "certificate_hash": "948db3cc28e0780dfb09e1fb37b77ecdc23ecbbe"
+          }
+        },
+        {
+          "client_id": "316652559395-72ndddktuhg31jdvhbu7ff2lfpk7cphi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuFIidiYHoRvrYvE29Kykfu_okACUXMZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316652559395-72ndddktuhg31jdvhbu7ff2lfpk7cphi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

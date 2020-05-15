@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/chocolateName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_centerVertical="true"
+            android:text="Chocolate Name"/>
+
+        <Button
+            android:id="@+id/minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background"
+            android:text="-"
+            android:textSize="22dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/chocolateName"/>
+
+        <TextView
+            android:id="@+id/chocolateNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="0"
+            android:layout_toRightOf="@+id/minus"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background"
+            android:layout_toRightOf="@+id/chocolateNumber"
+            android:layout_margin="10dp"
+            android:text="+"
+            android:textColor="@color/white"
+            android:textSize="22dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage">
+
+    <RelativeLayout
+        android:id="@+id/chocolates"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/diaryMilkText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DiaryMilk"
+            android:textSize="18dp"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/diaryPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/diaryMilkText"
+            android:text="+"
+            android:textSize="25dp"
+            android:background="@drawable/background"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/diaryNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/diaryPlus"
+            android:textSize="18dp"
+            android:text="0"/>
+
+        <Button
+            android:id="@+id/diaryMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/diaryNumber"
+            android:text="-"
+            android:layout_marginLeft="10dp"
+            android:textSize="25dp"
+            android:background="@drawable/background"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/FiveStarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FiveStar"
+            android:textSize="18dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/diaryMilkText"/>
+
+        <Button
+            android:id="@+id/fiveStarPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/diaryMilkText"
+            android:layout_below="@+id/diaryMilkText"
+            android:layout_marginTop="10dp"
+            android:text="+"
+            android:textSize="25dp"
+            android:background="@drawable/background"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/fiveStarNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/fiveStarPlus"
+            android:layout_below="@+id/diaryPlus"
+            android:textSize="18dp"
+            android:text="0"/>
+
+        <Button
+            android:id="@+id/fiveStarMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/fiveStarNumber"
+            android:text="-"
+            android:layout_below="@+id/diaryMilkText"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="25dp"
+            android:background="@drawable/background"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/Pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chocolates"
+        android:layout_centerHorizontal="true"
+        android:text="Pay"
+        android:background="@drawable/background"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>
