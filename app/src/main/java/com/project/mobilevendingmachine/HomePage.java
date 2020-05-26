@@ -24,13 +24,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
-public class HomePage extends AppCompatActivity implements View.OnClickListener {
-    TextView diaryMilkText, fiveStarText, diaryNumber, fiveStarNumber;
-    Button diaryPlus, diaryMinus, fiveStarPlus, fiveStarMinus;
+public class HomePage extends AppCompatActivity {
 
     LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerView;
     FirebaseRecyclerAdapter adapter;
+    TextView totalAmount;
+    Button pay;
+    ArrayList<homePojo> arrayList;
 
     @Override
     protected void onStart() {
@@ -39,21 +40,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         linearLayoutManager=new LinearLayoutManager(this);
         recyclerView=(RecyclerView)findViewById(R.id.chocolatesRV);
         recyclerView.setLayoutManager(linearLayoutManager);
-//        recyclerView.setHasFixedSize(true);
-
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("chocolates");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                homePojo pojo=dataSnapshot.getValue(homePojo.class);
-                Toast.makeText(HomePage.this,pojo.getName()+" hello",Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        totalAmount=(TextView)findViewById(R.id.totalAmount);
+        arrayList=new ArrayList<>();
 
         class viewHolder extends RecyclerView.ViewHolder{
             TextView chocolateName, chocolateNumber;
@@ -80,8 +68,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public homePojo parseSnapshot(@NonNull DataSnapshot snapshot) {
                         homePojo pojo=snapshot.getValue(homePojo.class);
-//                        pojo.setName(snapshot.child("name").getValue().toString());
-//                        pojo.setQuantity(Integer.parseInt(snapshot.child("quantity").getValue().toString()));
                         Toast.makeText(HomePage.this,pojo.getName()+"hello",Toast.LENGTH_SHORT).show();
                         return pojo;
                     }
@@ -89,17 +75,24 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         adapter= new FirebaseRecyclerAdapter<homePojo,viewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final viewHolder holder, int position, @NonNull homePojo model) {
+            protected void onBindViewHolder(@NonNull final viewHolder holder, final int position, @NonNull final homePojo model) {
                 holder.setChocolateName(model.getName());
                 final int no=model.getQuantity();
+                final homePojo temp=new homePojo();
+                temp.setName(model.getName());
 
                 holder.plus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        int amount=Integer.parseInt(totalAmount.getText().toString());
                         int selectQuantity=Integer.parseInt(holder.chocolateNumber.getText().toString());
                         if(selectQuantity+1<=no) {
                             ++selectQuantity;
                             holder.chocolateNumber.setText(selectQuantity+"");
+                            amount+=5;
+                            totalAmount.setText(amount+"");
+                            temp.setQuantity(model.getQuantity()-selectQuantity);
+                            arrayList.add(position,temp);
                         }
                         else
                             Toast.makeText(HomePage.this,"Only "+no+" Chocolates are available!",Toast.LENGTH_LONG).show();
@@ -109,10 +102,15 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 holder.minus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        int amount=Integer.parseInt(totalAmount.getText().toString());
                         int selectQuantity=Integer.parseInt(holder.chocolateNumber.getText().toString());
                         if(selectQuantity-1>=0) {
                             selectQuantity--;
                             holder.chocolateNumber.setText(selectQuantity+"");
+                            amount-=5;
+                            totalAmount.setText(amount+"");
+                            temp.setQuantity(model.getQuantity()-selectQuantity);
+                            arrayList.add(position,temp);
                         }
                         else
                             Toast.makeText(HomePage.this,"Please select the required number of chocolates...",Toast.LENGTH_LONG).show();
@@ -132,91 +130,22 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         adapter.startListening();
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        adapter.stopListening();
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-//        diaryMilkText=(TextView)findViewById(R.id.diaryMilkText);
-//        fiveStarText=(TextView)findViewById(R.id.FiveStarText);
-//        diaryPlus=(Button)findViewById(R.id.diaryPlus);
-//        diaryMinus=(Button)findViewById(R.id.diaryMinus);
-//        fiveStarPlus=(Button)findViewById(R.id.fiveStarPlus);
-//        fiveStarMinus=(Button)findViewById(R.id.fiveStarMinus);
-//        diaryNumber=(TextView)findViewById(R.id.diaryNumber);
-//        fiveStarNumber=(TextView)findViewById(R.id.fiveStarNumber);
-//
-//        diaryPlus.setOnClickListener(this);
-//        diaryMinus.setOnClickListener(this);
-//        fiveStarPlus.setOnClickListener(this);
-//        fiveStarMinus.setOnClickListener(this);
+        pay=(Button)findViewById(R.id.Pay);
 
-//        final ArrayList<String> chocolates=new ArrayList<>();
-//
-//        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("chocolates");
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-//                    for(DataSnapshot snapshot1:snapshot.getChildren()) {
-//                        if (snapshot1.getKey().equals("name")) {
-//                            String name=snapshot1.getValue(String.class);
-//                            chocolates.add(name);
-//                        }
-//                    }
-//                }
-//                if(chocolates.size()!=0) {
-//                    fiveStarText.setText(chocolates.get(0));
-//                    diaryMilkText.setText(chocolates.get(1));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-    }
-
-    @Override
-    public void onClick(View view) {
-        int diary=0,fiveStar=0;
-        int id=view.getId();
-//        switch (id){
-//            case R.id.diaryPlus:
-//                diary= Integer.parseInt(diaryNumber.getText().toString());
-//                ++diary;
-//                if(diary>10)
-//                    diary=10;
-//                diaryNumber.setText(diary+"");
-//                break;
-//            case R.id.diaryMinus:
-//                diary= Integer.parseInt(diaryNumber.getText().toString());
-//                --diary;
-//                if(diary<0)
-//                    diary=0;
-//                diaryNumber.setText(diary+"");
-//                break;
-//            case R.id.fiveStarPlus:
-//                fiveStar=Integer.parseInt(fiveStarNumber.getText().toString());
-//                ++fiveStar;
-//                if (fiveStar>10)
-//                    fiveStar=10;
-//                fiveStarNumber.setText(fiveStar+"");
-//                break;
-//            case R.id.fiveStarMinus:
-//                fiveStar=Integer.parseInt(fiveStarNumber.getText().toString());
-//                --fiveStar;
-//                if (fiveStar<0)
-//                    fiveStar=0;
-//                fiveStarNumber.setText(fiveStar+"");
-//                break;
-//        }
+        pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference reference=FirebaseDatabase.getInstance().getReference("chocolates");
+                for(homePojo pojo:arrayList){
+                    reference.child(pojo.getName()).child("quantity").setValue(pojo.getQuantity());
+                }
+                totalAmount.setText("0");
+            }
+        });
     }
 }
